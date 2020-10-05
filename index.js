@@ -7,6 +7,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use(optionsRoutes);
+
 try {
   app.listen(3000);
 } catch (error) {
