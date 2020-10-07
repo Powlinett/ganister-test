@@ -1,6 +1,6 @@
 const express = require('express');
 
-const filterElementsMiddleware = require('../middlewares/filter-elements');
+// const filterElementsMiddleware = require('../middlewares/filter-elements');
 const optionsController = require('../controllers/options');
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.get(
 
 router.post(
   '/GetConfiguredBOM',
-  filterElementsMiddleware,
+  // filterElementsMiddleware,
   optionsController.getConfiguredBOM
 );
 
