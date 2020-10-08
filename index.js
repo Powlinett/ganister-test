@@ -23,7 +23,7 @@ const session = driver.session();
 
 (async () => {
   try {
-    await session.run(cypherQuery);
+    cypherQuery();
 
     app.listen(3000);
   } catch (error) {
