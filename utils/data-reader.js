@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 
-const readJSONFile = async (filepath) => {
+const parseJSONFile = async (filepath) => {
   try {
     const data = await fs.readFile(filepath, 'utf8');
     return JSON.parse(data);
@@ -9,4 +9,4 @@ const readJSONFile = async (filepath) => {
   };
 };
 
-module.exports = readJSONFile;
+module.exports = parseJSONFile;
