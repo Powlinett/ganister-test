@@ -11,13 +11,23 @@
                                   v-bind:disabled="component.forbidden">
           <label v-bind:for="component.id"> {{ component.name }} </label>
         </div>
-        <div v-if="component.variants">
+        <div v-if="component.variants && index === 0">
+          <div v-for="variant in component.variants" :key="variant" class="component-input">
+            <input type="radio" v-bind:id="variant.id"
+                                v-bind:value="variant.id"
+                                v-model="idsSelection[index]"
+                                v-on:change="updateBOM()">
+            <label v-bind:for="variant.id"> {{ variant.name }} </label>
+          </div>
+        </div>
+        <div v-else-if="component.variants">
           <div v-for="variant in component.variants" :key="variant" class="component-input">
             <input type="radio" v-bind:id="variant.id"
                                 v-bind:value="variant.id"
                                 v-model="idsSelection[index]"
                                 v-on:change="updateBOM()"
-                                v-bind:disabled="variant.forbidden">
+                                v-bind:disabled="variant.forbidden"
+                                v-bind:checked="checkLastAvailableVariant(component.variants, variant)">
             <label v-bind:for="variant.id"> {{ variant.name }} </label>
           </div>
         </div>
@@ -25,6 +35,7 @@
       <button v-on:click="mounted()">Restart Config</button>
     </form>
     <div id="configuredBOM">
+      {{ idsSelection }}
       <h3>Final BOM:</h3>
       {{ bom }}
     </div>
@@ -120,6 +131,19 @@ export default {
         }
       })
       return components;
+    },
+
+    checkLastAvailableVariant(variants, variant) {
+      const hasForbbidenVariants = variants.some((v) => {
+        return v.forbidden === true;
+      })
+
+      if (hasForbbidenVariants) {
+        const availableVariants = variants.filter((v) => {
+          return (v.forbidden === false && v.id === variant.id)
+        });
+        return availableVariants.length === 1 ? true : false;
+      }
     }
   },
 
