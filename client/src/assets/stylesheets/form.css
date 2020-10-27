@@ -1,0 +1,23 @@
+#configureBOM {
+  max-width: max-content;
+  margin: 0 auto;
+}
+
+.component-options {
+  margin-bottom: 1rem;
+}
+
+.component-input {
+  border: 1px solid grey;
+  max-width: 100%;
+  padding: 0 2rem;
+  text-align: left;
+}
+
+.component-input input[disabled] + label {
+  text-decoration: line-through;
+}
+
+.option-input {
+  background-color: beige;
+}

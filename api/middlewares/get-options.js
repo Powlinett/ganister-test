@@ -4,8 +4,9 @@ const { getNestedComponents, deleteUselessKeys } = require('../utils/product-hel
 
 const getOptions = (req, res, next) => {
   const components = req.product.components;
-  req.options = buildOptionsObject(components);
-
+  const flattenComponentsArray = [];
+  getFlattenComponentsArray(components, flattenComponentsArray);
+  req.options = buildOptionsObject(flattenComponentsArray);
   next();
 }
 
@@ -24,5 +25,19 @@ const buildOptionsObject = (components) => {
   });
   return components;
 };
+
+const getFlattenComponentsArray = (components, flattenArray) => {
+  components.forEach((component) => {
+    const nestedComponents = getNestedComponents(component);
+    if (nestedComponents) {
+      getFlattenComponentsArray(nestedComponents, flattenArray);
+    }
+    if (component.variants || component.option) {
+      console.log(component)
+      flattenArray.push(component)
+    }
+  })
+  return flattenArray;
+}
 
 module.exports = getOptions;
