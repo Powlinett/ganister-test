@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Let's configure your product!</h2>
     <form id="configureBOM">
       <div v-for="(component, index) in components" :key="component" class="component-options">
         <div v-if="component.option" class="component-input option-input">
